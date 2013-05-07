@@ -32,7 +32,7 @@ def update_toolchain(path):
 
 
 def install_sdk(path, destination):
-    print "Requesting root privileges to move SDK to " + destinations + " and create " + cli_path
+    print "Requesting root privileges to move SDK to " + destination + " and create " + cli_path
     err = os.system('sudo mv ' + path + ' ' + destination)
     if err != 0:
         print "Install failed."
