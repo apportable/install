@@ -3,7 +3,7 @@
 import os
 import tempfile
 
-sdk_url = 'https://s3.amazonaws.com/engineering-apportable/ApportableSDK/mac/f3e73d34678e04c5b6dd4fd7217f76bb41fa9db8/ApportableSDK-f3e73d34678e04c5b6dd4fd7217f76bb41fa9db8_ae563d5092e2371c.tgz'
+sdk_url = 'https://s3.amazonaws.com/engineering-apportable/ApportableSDK/mac/a18d6597d12652b9001350f9aa519ef3baa9f40d/ApportableSDK-a18d6597d12652b9001350f9aa519ef3baa9f40d_5cbd48bed46dc54f.tgz'
 sdk_path = '/usr/local/apportable'
 cli_path = '/usr/local/bin/apportable'
 
