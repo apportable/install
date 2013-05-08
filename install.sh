@@ -37,7 +37,7 @@ def install_sdk(path, destination):
     if err != 0:
         print "Install failed."
         exit(err)
-    err = os.system('sudo ln -s ' + os.path.join(destination, 'site_scons', 'apportable.py') + ' ' + '/usr/local/bin/apportable')
+    err = os.system('sudo ln -fs ' + os.path.join(destination, 'site_scons', 'apportable.py') + ' ' + '/usr/local/bin/apportable')
     if err != 0:
         print "Unable to create " + cli_path
         exit(err)
