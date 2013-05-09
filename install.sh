@@ -16,7 +16,7 @@ rmdir SDK
 
 echo "SDK installed, now updating toolchain..."
 
-# $SDK_PATH/site_scons/apportable.py update_toolchain
+$SDK_PATH/site_scons/apportable.py update_toolchain
 
 echo "Toolchain updated."
 
