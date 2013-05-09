@@ -1,51 +1,35 @@
-/usr/bin/python <<DONE
+#!/bin/sh
+SDK_URL="https://s3.amazonaws.com/engineering-apportable/ApportableSDK/mac/19893793928b82d96badca4fdd051d139ba2e8a9/ApportableSDK-19893793928b82d96badca4fdd051d139ba2e8a9_232e6c3bc7046dd3.tgz"
+SDK_PATH="$HOME/.apportable/SDK"
 
-import os
-import tempfile
+echo "Downloading SDK"
 
-sdk_url = 'https://s3.amazonaws.com/engineering-apportable/ApportableSDK/mac/19893793928b82d96badca4fdd051d139ba2e8a9/ApportableSDK-19893793928b82d96badca4fdd051d139ba2e8a9_232e6c3bc7046dd3.tgz'
-sdk_path = '/usr/local/apportable'
-cli_path = '/usr/local/bin/apportable'
+# download and extract the client tarball
+rm -rf $SDK_PATH
+mkdir -p $SDK_PATH
+cd $SDK_PATH
 
-def download(url):
-    output = os.path.join(tempfile.gettempdir(), url.split('/')[-1])
-    err = os.system('curl ' + url + ' > ' + output)
-    if err != 0:
-        print "Download failed."
-        exit(err)
-    return output
+curl $SDK_URL | tar xz
 
+mv SDK/* .
+rmdir SDK
 
-def extract(path, destination):
-    err = os.system('tar -xzvf ' + path + ' -C ' + destination)
-    if err != 0:
-        print "Unarchive failed."
-        exit(err)
-    return os.path.join(destination, 'SDK')
+echo "SDK installed, now updating toolchain..."
 
+$SDK_PATH/site_scons/apportable.py update_toolchain
 
-def update_toolchain(path):
-    err = os.system(os.path.join(path, 'site_scons', 'apportable.py') + ' --confirm-stable-updates update_toolchain')
-    if err != 0:
-        print "Toolchain update failed."
-        exit(err)
+echo "Toolchain updated."
 
+cd bin
+ln -s ../site_scons/apportable.py apportable
 
-def install_sdk(path, destination):
-    print "Requesting root privileges to move SDK to " + destination + " and create " + cli_path
-    err = os.system('sudo mv ' + path + ' ' + destination)
-    if err != 0:
-        print "Install failed."
-        exit(err)
-    err = os.system('sudo ln -fs ' + os.path.join(destination, 'site_scons', 'apportable.py') + ' ' + '/usr/local/bin/apportable')
-    if err != 0:
-        print "Unable to create " + cli_path
-        exit(err)
+echo "Apportable CLI is successfully installed."
 
-
-tarball = download(sdk_url)
-extracted = extract(tarball, os.path.join(tempfile.gettempdir()))
-update_toolchain(extracted)
-install_sdk(extracted, sdk_path)
-
-DONE
+# remind the user to add to $PATH
+if [[ ":$PATH:" != *":/usr/local/heroku/bin:"* ]]; then
+  echo "Add the Apportable CLI to your PATH using:"
+  echo "$ echo 'PATH=\"$SDK_PATH/bin:\$PATH\"' >> ~/.bash_profile"
+  echo "$ source ~/.bash_profile"
+fi
+echo "Usage: apportable --help"
+echo "Documentation: http://docs.apportable.com/"
