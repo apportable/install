@@ -16,7 +16,7 @@ rmdir SDK
 
 echo "SDK installed, now updating toolchain..."
 
-$SDK_PATH/site_scons/apportable.py update_toolchain
+# $SDK_PATH/site_scons/apportable.py update_toolchain
 
 echo "Toolchain updated."
 
@@ -26,10 +26,8 @@ ln -s ../site_scons/apportable.py apportable
 echo "Apportable CLI is successfully installed."
 
 # remind the user to add to $PATH
-if [[ ":$PATH:" != *":/usr/local/heroku/bin:"* ]]; then
+if [[ ":$PATH:" != *":$SDK_PATH/bin:"* ]]; then
   echo "Add the Apportable CLI to your PATH using:"
   echo "$ echo 'PATH=\"$SDK_PATH/bin:\$PATH\"' >> ~/.bash_profile"
   echo "$ source ~/.bash_profile"
 fi
-echo "Usage: apportable --help"
-echo "Documentation: http://docs.apportable.com/"
