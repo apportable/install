@@ -15,7 +15,9 @@ curl $SDK_URL | tar xz
 mv SDK/* .
 rmdir SDK
 
-echo "SDK installed, now updating toolchain."
+echo "SDK installed. Now updating toolchain."
+
+echo $LICENSE > $SDK_PATH/LICENSE
 
 mkdir -p $TOOLCHAIN_PATH
 ln -s $TOOLCHAIN_PATH toolchain
