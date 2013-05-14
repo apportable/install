@@ -27,6 +27,7 @@ echo "Toolchain updated."
 
 cd bin
 ln -s ../site_scons/apportable.py apportable
+ln -s ../toolchain/bin/macosx/android-sdk/platform-tools/adb adb
 
 echo "Apportable CLI is successfully installed at $SDK_PATH/bin/apportable"
 
