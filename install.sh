@@ -1,5 +1,5 @@
 #!/bin/sh
-SDK_URL="https://s3.amazonaws.com/engineering-apportable/ApportableSDK/mac/19893793928b82d96badca4fdd051d139ba2e8a9/ApportableSDK-19893793928b82d96badca4fdd051d139ba2e8a9_232e6c3bc7046dd3.tgz"
+SDK_URL="https://s3.amazonaws.com/engineering-apportable/ApportableSDK/mac/ccf36b4be626880cb59b3a6cc5a814d6fbb5956e/ApportableSDK-ccf36b4be626880cb59b3a6cc5a814d6fbb5956e_69b2cdad9d6c590d.tgz"
 SDK_PATH="$HOME/.apportable/SDK"
 TOOLCHAIN_PATH="$HOME/.apportable/toolchain"
 
