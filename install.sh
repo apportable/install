@@ -34,6 +34,6 @@ echo "Apportable CLI is successfully installed at $SDK_PATH/bin/apportable"
 # remind the user to add to $PATH
 if [[ ":$PATH:" != *":$SDK_PATH/bin:"* ]]; then
   echo "If you're using the default shell, add the Apportable CLI to your PATH using:"
-  echo "$ echo 'PATH=\"$SDK_PATH/bin:\$PATH\"' >> ~/.bash_profile"
+  echo "$ (echo; echo 'PATH=\"$SDK_PATH/bin:\$PATH\"') >> ~/.bash_profile"
   echo "$ source ~/.bash_profile"
 fi
