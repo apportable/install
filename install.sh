@@ -11,7 +11,7 @@ then
   exit 1
 fi
 
-echo "Downloading SDK..."
+echo "Downloading SDK from $SDK_URL"
 
 # download and extract the client tarball
 rm -rf $SDK_PATH
