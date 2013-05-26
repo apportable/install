@@ -1,7 +1,15 @@
 #!/bin/sh
-SDK_URL="https://s3.amazonaws.com/engineering-apportable/ApportableSDK/mac/acbbc3114158b8ca1574f2f94a1c2a61debbf401/ApportableSDK-acbbc3114158b8ca1574f2f94a1c2a61debbf401_a8273fc1ad0f47c6.tgz"
 SDK_PATH="$HOME/.apportable/SDK"
 TOOLCHAIN_PATH="$HOME/.apportable/toolchain"
+
+echo "Checking for latest SDK..."
+
+SDK_URL=`curl -s --fail http://www.apportable.com/sdk?key=$LICENSE`
+if [ -z "$SDK_URL" ]
+then
+  echo "Could not find your SDK, please contact sdk@apportable.com."
+  exit 1
+fi
 
 echo "Downloading SDK..."
 
