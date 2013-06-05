@@ -1,6 +1,7 @@
 #!/bin/sh
-SDK_PATH="$HOME/.apportable/SDK"
-TOOLCHAIN_PATH="$HOME/.apportable/toolchain"
+APPORTABLE_PATH="$HOME/.apportable"
+SDK_PATH="$APPORTABLE_PATH/SDK"
+TOOLCHAIN_PATH="$APPORTABLE_PATH/toolchain"
 
 echo "Checking for latest SDK..."
 
@@ -13,25 +14,27 @@ fi
 
 echo "Downloading SDK from $SDK_URL"
 
-# download and extract the client tarball
-rm -rf $SDK_PATH
+# download and extract the client tarball into $SDK_PATH/SDK
 mkdir -p $SDK_PATH
 cd $SDK_PATH
-
+rm -rf SDK
 curl $SDK_URL | tar xz
 
-mv SDK/* .
-rmdir SDK
+# move $SDK_PATH/SDK to $SDK_PATH
+cd $APPORTABLE_PATH
+mv SDK SDK-old
+mv SDK-old/SDK SDK
+rm -rf SDK-old
 
-echo "SDK installed. Now updating toolchain."
+echo "SDK installed into $SDK_PATH. Now updating toolchain."
 
-echo $LICENSE > $SDK_PATH/LICENSE
-
+cd $SDK_PATH
+echo $LICENSE > LICENSE
 mkdir -p $TOOLCHAIN_PATH
 ln -s $TOOLCHAIN_PATH toolchain
 ./site_scons/apportable.py update_toolchain --confirm-stable-updates
 
-echo "Toolchain updated."
+echo "Toolchain downloaded into $TOOLCHAIN_PATH."
 
 cd bin
 ln -s ../site_scons/apportable.py apportable
