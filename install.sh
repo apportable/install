@@ -3,6 +3,14 @@ APPORTABLE_PATH="$HOME/.apportable"
 SDK_PATH="$APPORTABLE_PATH/SDK"
 TOOLCHAIN_PATH="$APPORTABLE_PATH/toolchain"
 
+echo "Checking Python version..."
+python -c "import sys; print sys.version; sys.exit(sys.version_info<(2,7) or sys.version_info>=(3,))"
+
+if [ $? -ne 0 ]; then
+  echo "Your version of Python is not supported. We recommend Python 2.7.x."
+  exit 1
+fi
+
 echo "Checking for latest SDK..."
 
 SDK_URL=`curl -s --fail http://www.apportable.com/sdk?key=$LICENSE`
