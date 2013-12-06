@@ -45,7 +45,7 @@ ln -s $TOOLCHAIN_PATH toolchain
 echo "Toolchain downloaded into $TOOLCHAIN_PATH."
 
 cd bin
-ln -s ../site_scons/apportable.py apportable
+mv dt apportable
 ln -s ../toolchain/macosx/android-sdk/platform-tools/adb adb
 
 echo "Apportable CLI is successfully installed at $SDK_PATH/bin/apportable"
