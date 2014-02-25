@@ -2,6 +2,9 @@
 APPORTABLE_PATH="$HOME/.apportable"
 SDK_PATH="$APPORTABLE_PATH/SDK"
 TOOLCHAIN_PATH="$APPORTABLE_PATH/toolchain"
+APPORTABLE_TOOL_PATH="./lib/apportable/apportable.py"
+SCONS_TOOL_PATH="./site_scons/apportable.py"
+TOOL_PATH=$APPORTABLE_TOOL_PATH
 
 echo "Checking Python version..."
 python -c "import sys; print sys.version; sys.exit(sys.version_info<(2,7) or sys.version_info>=(3,))"
@@ -40,12 +43,22 @@ cd $SDK_PATH
 echo $LICENSE > LICENSE
 mkdir -p $TOOLCHAIN_PATH
 ln -s $TOOLCHAIN_PATH toolchain
-./site_scons/apportable.py update_toolchain --confirm-stable-updates
+
+if [ -f $APPORTABLE_TOOL_PATH ]; then
+    TOOL_PATH=$APPORTABLE_TOOL_PATH
+elif [ -f $SCONS_TOOL_PATH ]; then
+    TOOL_PATH=$SCONS_TOOL_PATH
+else
+    echo "Unable to find build system tool."
+    exit 1
+fi
+
+$TOOL_PATH update_toolchain --confirm-stable-updates
 
 echo "Toolchain downloaded into $TOOLCHAIN_PATH."
 
 cd bin
-ln -s ../site_scons/apportable.py apportable
+ln -s ".$TOOL_PATH" apportable
 ln -s ../toolchain/macosx/android-sdk/platform-tools/adb adb
 
 echo "Apportable CLI is successfully installed at $SDK_PATH/bin/apportable"
