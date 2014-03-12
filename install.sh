@@ -53,13 +53,13 @@ else
     exit 1
 fi
 
-$TOOL_PATH update_toolchain --confirm-stable-updates
-
-echo "Toolchain downloaded into $TOOLCHAIN_PATH."
-
 cd bin
 ln -s ".$TOOL_PATH" apportable
 ln -s ../toolchain/macosx/android-sdk/platform-tools/adb adb
+
+"$SDK_PATH/bin/apportable" update_toolchain --confirm-stable-updates
+
+echo "Toolchain downloaded into $TOOLCHAIN_PATH."
 
 echo "Apportable CLI is successfully installed at $SDK_PATH/bin/apportable"
 
