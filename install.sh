@@ -37,6 +37,8 @@ mv SDK SDK-old
 mv SDK-old/SDK SDK
 rm -rf SDK-old
 
+echo -n $SDK_URL | shasum | cut -d' ' -f 1 > $SDK_PATH/HASH
+
 echo "SDK installed into $SDK_PATH. Now updating toolchain."
 
 cd $SDK_PATH
