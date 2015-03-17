@@ -16,7 +16,7 @@ fi
 
 echo "Checking for latest SDK..."
 
-SDK_URL=`curl -s --fail http://www.apportable.com/sdk?key=$LICENSE`
+SDK_URL=`curl -L -s --fail http://www.apportable.com/sdk?key=$LICENSE`
 if [ -z "$SDK_URL" ]
 then
   echo "Could not find your SDK, please contact sdk@apportable.com."
